@@ -13,6 +13,7 @@
         <module name="storage" />
         <module name="authorization-management" />
         <module name="common" />
+        <module name="human-resource-salary-management" />
       </profile>
     </annotationProcessing>
   </component>
@@ -21,6 +22,7 @@
       <module name="authorization-management" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="human-resource-archive-management" options="-parameters" />
+      <module name="human-resource-salary-management" options="-parameters" />
       <module name="myHRSystem" options="-parameters" />
       <module name="storage" options="-parameters" />
     </option>
