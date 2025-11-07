@@ -197,6 +197,11 @@ public class EmployeeArchive {
     private LocalDateTime reviewTime;
 
     /**
+     * 复核意见（大段文本）
+     */
+    private String reviewComments;
+
+    /**
      * 状态：PENDING_REVIEW(待复核), NORMAL(正常), DELETED(已删除)
      */
     private String status;

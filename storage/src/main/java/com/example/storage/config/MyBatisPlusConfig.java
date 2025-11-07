@@ -3,13 +3,16 @@ package com.example.storage.config;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * MyBatis-Plus 配置类
+ * 包含Mapper扫描和分页插件配置
  */
 @Configuration
+@MapperScan("com.example.storage.mapper")
 public class MyBatisPlusConfig {
 
     /**

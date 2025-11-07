@@ -25,7 +25,12 @@ public enum SalaryIssuanceStatus {
     /**
      * 已付款
      */
-    PAID("PAID", "已付款");
+    PAID("PAID", "已付款"),
+
+    /**
+     * 已驳回
+     */
+    REJECTED("REJECTED", "已驳回");
 
     private final String code;
     private final String description;

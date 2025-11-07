@@ -1,0 +1,58 @@
+package com.example.authorization.config;
+
+import com.example.authorization.filter.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+/**
+ * Spring Security 配置类
+ */
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class SecurityConfig {
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    /**
+     * 密码编码器
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * Security过滤器链配置
+     */
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            // 禁用CSRF（因为使用JWT，不需要CSRF保护）
+            .csrf(csrf -> csrf.disable())
+            // 配置会话管理为无状态（使用JWT，不需要Session）
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            // 配置请求授权
+            .authorizeHttpRequests(auth -> auth
+                // 登录、刷新Token、验证Token接口允许匿名访问
+                .requestMatchers("/api/auth/login", "/api/auth/refresh", "/api/auth/validate").permitAll()
+                // 登出接口需要认证（但允许通过过滤器）
+                .requestMatchers("/api/auth/logout").authenticated()
+                // 其他接口需要认证
+                .anyRequest().authenticated()
+            )
+            // 添加JWT过滤器
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+}
+

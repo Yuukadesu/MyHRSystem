@@ -52,6 +52,11 @@ public class SalaryIssuance {
     private LocalDate issuanceMonth;
 
     /**
+     * 实际发放时间（财务系统付款日期）
+     */
+    private LocalDate issuanceTime;
+
+    /**
      * 登记人ID
      */
     private Long registrarId;
@@ -72,7 +77,12 @@ public class SalaryIssuance {
     private LocalDateTime reviewTime;
 
     /**
-     * 状态：PENDING_REGISTRATION(待登记), PENDING_REVIEW(待复核), EXECUTED(执行), PAID(已付款)
+     * 驳回原因
+     */
+    private String rejectReason;
+
+    /**
+     * 状态：PENDING_REGISTRATION(待登记), PENDING_REVIEW(待复核), EXECUTED(执行), PAID(已付款), REJECTED(已驳回)
      */
     private String status;
 
